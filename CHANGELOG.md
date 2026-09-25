@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Add a dependency-free Steam Gaze to Hotscreen UDP bridge with monitor-aware coordinate conversion, stale-frame invalidation and a Windows launcher.
+
 ## 0.1.1 — experimental
 
 Initial public snapshot.

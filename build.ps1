@@ -21,6 +21,13 @@ foreach ($name in @('README.md','README.zh-CN.md','EXTENSIONS.md','THIRD-PARTY.m
 Copy-Item -LiteralPath (Join-Path $sdk 'LICENSE') -Destination (Join-Path $Output 'OpenVR-LICENSE.txt') -Force
 $imagePath = Join-Path $PSScriptRoot 'docs\settings.png'
 if (Test-Path -LiteralPath $imagePath) { New-Item -ItemType Directory -Path (Join-Path $Output 'docs') -Force | Out-Null; Copy-Item -LiteralPath $imagePath -Destination (Join-Path $Output 'docs\settings.png') -Force }
+$bridgeOutput = Join-Path $Output 'bridges'
+New-Item -ItemType Directory -Path $bridgeOutput -Force | Out-Null
+foreach ($name in @('steamgaze_hotscreen_bridge.py','Start Steam Gaze to Hotscreen Bridge.cmd','README.md')) {
+    $bridgeFile = Join-Path (Join-Path $PSScriptRoot 'bridges') $name
+    if (!(Test-Path -LiteralPath $bridgeFile)) { throw "Missing bridge file: $name" }
+    Copy-Item -LiteralPath $bridgeFile -Destination $bridgeOutput -Force
+}
 $process=Start-Process -FilePath (Join-Path $Output 'SteamGazeOverlay.exe') -ArgumentList '--self-test' -WindowStyle Hidden -PassThru -Wait
 if ($process.ExitCode -ne 0) { throw 'Self tests failed; see data/fatal.txt' }
 Get-Content (Join-Path $Output 'data\self-test.txt')

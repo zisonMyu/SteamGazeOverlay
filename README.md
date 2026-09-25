@@ -65,6 +65,10 @@ The default-enabled endpoint `\\.\pipe\SteamGazeOverlay.v1` exports UTF-8 newlin
 
 [EXTENSIONS.md](EXTENSIONS.md) describes the schema, coordinate conventions, freshness handling and source/processor/surface/output interfaces. Extensions are compiled adapters in this version; there is no dynamic plugin loader.
 
+### Hotscreen bridge
+
+[`bridges/steamgaze_hotscreen_bridge.py`](bridges/steamgaze_hotscreen_bridge.py) is a standard-library Windows bridge for Hotscreen's gaze mod. It converts valid Desktop+ hits to normalized monitor coordinates and sends two little-endian float32 values to `UDP 127.0.0.1:7779`. Invalid, stale or missing hits send `(-1, -1)`. See [`bridges/README.md`](bridges/README.md) for setup and monitor selection.
+
 ## Build
 
 Use Windows PowerShell and a C# compiler. The build script locates Visual Studio's Roslyn compiler with `vswhere`, then falls back to the Windows .NET Framework compiler. The tested build uses Visual Studio 2022. You can pass an explicit compiler path.

@@ -39,4 +39,6 @@ SteamVR 合并眼动显示与 Desktop+ → Windows 坐标桥接，当前为实�
 
 `build.ps1` 在 Windows 上调用 C# 编译器，输出到 `dist` 并执行离线测试。`package.ps1` 生成仅含公开运行文件的 ZIP，不包含用户配置、日志和符号。扩展协议见 [EXTENSIONS.md](EXTENSIONS.md)，第三方来源见 [THIRD-PARTY.md](THIRD-PARTY.md)。
 
+`bridges/steamgaze_hotscreen_bridge.py` 可将有效的 Desktop+ 桌面命中转换成 Hotscreen mod 使用的 `UDP 127.0.0.1:7779` 两个 little-endian float32 坐标；视线无效、数据过期或未命中桌面时发送 `(-1, -1)`。它只使用 Python 标准库，启动和多屏配置见 [`bridges/README.md`](bridges/README.md)。
+
 眼动 Overlay 及桌面注视交互已有相关项目；本项目的侧重点是将全局注视显示、Desktop+ 桌面坐标和本机数据接口整合起来，不宣称首创。

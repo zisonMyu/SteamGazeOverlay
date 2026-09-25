@@ -9,6 +9,7 @@ $build = Join-Path $OutputRoot ('build-' + [guid]::NewGuid().ToString('N'))
 $names = @('SteamGazeOverlay.exe','openvr_api.dll','actions.json','binding_generic.json','binding_psvr2.json','README.md','README.zh-CN.md','EXTENSIONS.md','THIRD-PARTY.md','CHANGELOG.md','LICENSE','OpenVR-LICENSE.txt')
 $files = @($names | ForEach-Object { $path = Join-Path $build $_; if (!(Test-Path -LiteralPath $path)) { throw "Missing release file: $_" }; $path })
 $files += Join-Path $build 'docs'
+$files += Join-Path $build 'bridges'
 Compress-Archive -LiteralPath $files -DestinationPath $archive -CompressionLevel Optimal
 $hash = Get-FileHash -LiteralPath $archive -Algorithm SHA256
 ($hash.Hash.ToLowerInvariant() + '  ' + [IO.Path]::GetFileName($archive)) | Set-Content -LiteralPath (Join-Path $OutputRoot 'SHA256SUMS.txt') -Encoding Ascii
